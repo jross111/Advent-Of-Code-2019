@@ -5,10 +5,11 @@ const HALT = 99;
 const ADD = 1;
 const MULTIPLY = 2;
 
-function initProgram() {
+function initProgram(noun, verb) {
   let program = fs.readFileSync("./input-02.txt", "utf-8").split(",");
-  //   program[1] = noun;
-  //   program[2] = verb;
+    program[1] = noun;
+    program[2] = verb;
+    // console.log(noun, verb);
   return program;
 }
 
@@ -32,9 +33,10 @@ function getPosition(program, index) {
   return parseInt(program[index + 3]);
 }
 
-function part1() {
-  program = initProgram();
-
+function part1(noun, verb) {
+  program = initProgram(noun, verb);
+  
+  console.log(program)
   let index = 0;
   let opcode = getOpcode(program, index);
   let valueOne = getValueOne(program, index);
@@ -57,9 +59,30 @@ function part1() {
     valueTwo = getValueTwo(program, index);
     position = getPosition(program, index);
   }
-
+  console.log(program)
   return program[0];
 }
+
+
+
+
+function part2(output){
+  for(let noun = 0; noun <= 99; noun++){
+    for(let verb = 0; verb <= 99; verb++){
+      if(part1(noun, verb) === output){
+        return (100 * noun) + verb;
+      }
+    }
+  }
+
+  return "didn't work";
+
+}
+
+console.log(part2(19690720))
+
+
+
 
 console.log(part1());
 
